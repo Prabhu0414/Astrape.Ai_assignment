@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API = axios.create({
-  baseURL: "https://astrape-ai-assignment-1.onrender.com/api",
+  baseURL: "https://astrape-ai-assignment-1.onrender.com/",
   headers: { "Content-Type": "application/json" },
 })
 
@@ -15,7 +15,7 @@ API.interceptors.request.use((config) => {
 // -------- AUTH APIs --------
 export const signup = async (userData) => {
   try {
-    const { data } = await API.post("/auth/signup", userData)
+    const { data } = await API.post("api/auth/signup", userData)
     if (!data || !data.token) throw new Error(data?.message || "Token missing in response")
     localStorage.setItem("token", data.token)
     return data.user
