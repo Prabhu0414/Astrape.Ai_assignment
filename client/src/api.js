@@ -27,7 +27,7 @@ export const signup = async (userData) => {
 
 export const login = async (userData) => {
   try {
-    const { data } = await API.post("/auth/login", userData)
+    const { data } = await API.post("api/auth/login", userData)
     if (!data || !data.token) throw new Error("Token missing in response")
     localStorage.setItem("token", data.token)
     localStorage.setItem("user", JSON.stringify(data.user)) // ✅ save user
@@ -46,7 +46,7 @@ export const logout = () => {
 export const fetchProducts = async (filters = {}) => {
   try {
     const query = new URLSearchParams(filters).toString()
-    const { data } = await API.get(`/products?${query}`)
+    const { data } = await API.get(`api/products?${query}`)
     return data.products
   } catch (err) {
     throw err.response?.data || err
@@ -55,7 +55,7 @@ export const fetchProducts = async (filters = {}) => {
 
 export const fetchProductById = async (id) => {
   try {
-    const { data } = await API.get(`/products/${id}`)
+    const { data } = await API.get(`api/products/${id}`)
     return data
   } catch (err) {
     throw err.response?.data || err
@@ -65,7 +65,7 @@ export const fetchProductById = async (id) => {
 // Admin: Create product
 export const createProduct = async (product) => {
   try {
-    const { data } = await API.post("/admin", product)
+    const { data } = await API.post("api/admin", product)
     return data
   } catch (err) {
     throw err.response?.data || err
@@ -75,7 +75,7 @@ export const createProduct = async (product) => {
 // Admin: Update product
 export const updateProduct = async (id, product) => {
   try {
-    const { data } = await API.put(`/admin/${id}`, product)
+    const { data } = await API.put(`api/admin/${id}`, product)
     return data
   } catch (err) {
     throw err.response?.data || err
@@ -85,7 +85,7 @@ export const updateProduct = async (id, product) => {
 // Admin: Delete product
 export const deleteProduct = async (id) => {
   try {
-    const { data } = await API.delete(`/admin/${id}`)
+    const { data } = await API.delete(`api/admin/${id}`)
     return data
   } catch (err) {
     throw err.response?.data || err
@@ -95,7 +95,7 @@ export const deleteProduct = async (id) => {
 // Add item to cart
 export const addToCart = async (productId, qty = 1) => {
   try {
-    const { data } = await API.post("/cart/add", { productId, qty });
+    const { data } = await API.post("api/cart/add", { productId, qty });
     return data.items;
   } catch (err) {
     throw err.response?.data || err;
@@ -105,7 +105,7 @@ export const addToCart = async (productId, qty = 1) => {
 // Update cart item quantity
 export const updateCartItem = async (productId, qty) => {
   try {
-    const { data } = await API.put("/cart/item", { productId, qty });
+    const { data } = await API.put("api/cart/item", { productId, qty });
     return data.items || data.cart?.items || [];
   } catch (err) {
     throw err.response?.data || err;
@@ -115,7 +115,7 @@ export const updateCartItem = async (productId, qty) => {
 // Remove item from cart
 export const removeCartItem = async (productId) => {
   try {
-    const { data } = await API.delete(`/cart/item/${productId}`);
+    const { data } = await API.delete(`api/cart/item/${productId}`);
     return data.items || data.cart?.items || [];
   } catch (err) {
     throw err.response?.data || err;
@@ -125,7 +125,7 @@ export const removeCartItem = async (productId) => {
 // Fetch cart items
 export const fetchCart = async () => {
   try {
-    const { data } = await API.get("/cart");
+    const { data } = await API.get("api/cart");
     return data.items;
   } catch (err) {
     throw err.response?.data || err;
@@ -134,7 +134,7 @@ export const fetchCart = async () => {
 
 export const getCartItems = async () => {
   try {
-    const { data } = await API.get("/cart");
+    const { data } = await API.get("api/cart");
     return data.items;
   } catch (err) {
     throw err.response?.data || err;
